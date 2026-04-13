@@ -1,22 +1,20 @@
-name: CI-CD Pipeline
+name: Lab 1 CI/CD Pipeline
 on: [push]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4  # This copies your code into the Linux runner
+      - name: 1. Checkout Code
+        uses: actions/checkout@v4 # This is required to let GitHub see your files
 
-      - name: Build
-        run: echo "Installing dependencies..." # e.g., npm install or pip install
+      - name: 2. Setup Environment
+        run: echo "Setting up environment... (e.g., Installing Python/Node)"
 
-      - name: Test
-        run: echo "Running automated tests..." # e.g., pytest or npm test
+      - name: 3. Build Application
+        run: echo "Building the project..."
 
-  deploy:
-    needs: build-and-test # Only runs if the tests pass!
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy Application
-        run: echo "Deploying to server..." # This is where the 'CD' happens
+      - name: 4. Run Tests
+        run: |
+          echo "Running unit tests..."
+          # If you have a real test script, you'd put the command here (e.g., python test.py)
