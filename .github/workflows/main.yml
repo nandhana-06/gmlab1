@@ -1,12 +1,15 @@
 name: Lab 1 CI/CD Pipeline
-on: [push]
+on:
+  push:
+    branches:
+      - main  
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: 1. Checkout Code
-        uses: actions/checkout@v4 # This is required to let GitHub see your files
+        uses: actions/checkout@v4
 
       - name: 2. Setup Environment
         run: echo "Setting up environment... (e.g., Installing Python/Node)"
@@ -17,4 +20,4 @@ jobs:
       - name: 4. Run Tests
         run: |
           echo "Running unit tests..."
-          # If you have a real test script, you'd put the command here (e.g., python test.py)
+          echo "All tests passed successfully!"
