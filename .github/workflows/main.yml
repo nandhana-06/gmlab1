@@ -1,23 +1,43 @@
-name: Lab 1 CI/CD Pipeline
+name: Multi-Stage CI/CD Pipeline
+
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
-  build-and-test:
+  # Stage 1: Build
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. Checkout Code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: 2. Setup Environment
-        run: echo "Setting up environment... (e.g., Installing Python/Node)"
-
-      - name: 3. Build Application
-        run: echo "Building the project..."
-
-      - name: 4. Run Tests
+      - name: Build Application
         run: |
-          echo "Running unit tests..."
-          echo "All tests passed successfully!"
+          echo "Compiling code..."
+          echo "Build complete."
+
+  # Stage 2: Test
+  test:
+    needs: build # This stage waits for 'build' to finish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Unit Tests
+        run: |
+          echo "Executing tests..."
+          echo "All tests passed!"
+
+  # Stage 3: Deploy
+  deploy:
+    needs: test # This stage only runs if 'test' passes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Production
+        run: |
+          echo "Connecting to server..."
+          echo "Deploying application..."
+          echo "Application is live!"
