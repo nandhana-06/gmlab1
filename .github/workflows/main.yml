@@ -1,8 +1,22 @@
-name: My First Workflow
+name: CI-CD Pipeline
 on: [push]
+
 jobs:
-  say-hello:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Run a greeting
-        run: echo "Hello from GitHub Actions!"
+      - name: Checkout code
+        uses: actions/checkout@v4  # This copies your code into the Linux runner
+
+      - name: Build
+        run: echo "Installing dependencies..." # e.g., npm install or pip install
+
+      - name: Test
+        run: echo "Running automated tests..." # e.g., pytest or npm test
+
+  deploy:
+    needs: build-and-test # Only runs if the tests pass!
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Application
+        run: echo "Deploying to server..." # This is where the 'CD' happens
